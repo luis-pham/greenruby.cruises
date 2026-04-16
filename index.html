@@ -56,24 +56,19 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 60px 24px 80px;
+    padding: 24px 20px 40px;
   }
 
   /* ── LOGO MARK ── */
   .logo-mark {
-    width: 88px;
-    height: 88px;
-    margin: 0 auto 28px;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 16px;
     opacity: 0;
     animation: fadeUp 0.8s ease 0.1s forwards;
     border-radius: 50%;
-    border: 1px solid rgba(201,168,76,0.45);
-    box-shadow:
-      0 0 0 4px rgba(45,148,85,0.15),
-      0 0 20px rgba(61,184,106,0.2);
-    padding: 10px;
-    background: rgba(255,255,255,0.04);
-    backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(201,168,76,0.6);
+    padding: 8px;
   }
 
   .logo-mark img {
@@ -86,7 +81,7 @@
   /* ── HEADER ── */
   .brand-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(28px, 6vw, 38px);
+    font-size: clamp(24px, 5vw, 32px);
     font-weight: 300;
     letter-spacing: 0.12em;
     text-align: center;
@@ -108,7 +103,7 @@
     text-transform: uppercase;
     color: var(--green-glow);
     text-align: center;
-    margin-top: 10px;
+    margin-top: 6px;
     opacity: 0;
     animation: fadeUp 0.8s ease 0.4s forwards;
   }
@@ -117,20 +112,20 @@
     width: 40px;
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 24px auto;
+    margin: 12px auto;
     opacity: 0;
     animation: fadeUp 0.8s ease 0.5s forwards;
   }
 
   .tagline {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 300;
     font-style: italic;
     letter-spacing: 0.06em;
     color: rgba(245,240,232,0.65);
     text-align: center;
-    margin-bottom: 44px;
+    margin-bottom: 20px;
     opacity: 0;
     animation: fadeUp 0.8s ease 0.6s forwards;
   }
@@ -141,15 +136,15 @@
     max-width: 400px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 8px;
   }
 
   .link-btn {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 18px 22px;
+    gap: 14px;
+    padding: 12px 18px;
     border-radius: 4px;
     text-decoration: none;
     overflow: hidden;
@@ -256,8 +251,8 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    margin-top: 40px;
-    padding: 8px 16px;
+    margin-top: 16px;
+    padding: 6px 14px;
     border: 1px solid rgba(201,168,76,0.25);
     border-radius: 100px;
     font-size: 10px;
@@ -277,7 +272,7 @@
 
   /* ── FOOTER ── */
   .footer {
-    margin-top: 48px;
+    margin-top: 16px;
     font-size: 10px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -377,6 +372,24 @@
       <span class="link-arrow">›</span>
     </a>
 
+    <a class="link-btn" href="tel:+84386026886" onclick="ripple(event)">
+      <span class="link-icon">📞</span>
+      <span class="link-text">
+        <span class="link-title">Liên hệ trực tiếp</span>
+        <span class="link-desc">0386026886 · WhatsApp · Zalo</span>
+      </span>
+      <span class="link-arrow">›</span>
+    </a>
+
+    <a class="link-btn" href="https://greenrubycruises.com" target="_blank" onclick="ripple(event)">
+      <span class="link-icon">🌐</span>
+      <span class="link-text">
+        <span class="link-title">Website chính thức</span>
+        <span class="link-desc">greenrubycruises.com</span>
+      </span>
+      <span class="link-arrow">›</span>
+    </a>
+
     <a class="link-btn" href="https://www.youtube.com/@GreenRubyOfficial"  onclick="ripple(event)">
       <span class="link-icon"><img src="images/youtube.png"  style="width: 20px;"></span>
       <span class="link-text">
@@ -400,24 +413,6 @@
       <span class="link-text">
         <span class="link-title">Facebook</span>
         <span class="link-desc">@greenrubyofficial</span>
-      </span>
-      <span class="link-arrow">›</span>
-    </a>
-
-    <a class="link-btn" href="tel:+84386026886" onclick="ripple(event)">
-      <span class="link-icon">📞</span>
-      <span class="link-text">
-        <span class="link-title">Liên hệ trực tiếp</span>
-        <span class="link-desc">0386026886 · WhatsApp · Zalo</span>
-      </span>
-      <span class="link-arrow">›</span>
-    </a>
-
-    <a class="link-btn" href="https://greenrubycruises.com" target="_blank" onclick="ripple(event)">
-      <span class="link-icon">🌐</span>
-      <span class="link-text">
-        <span class="link-title">Website chính thức</span>
-        <span class="link-desc">greenrubycruises.com</span>
       </span>
       <span class="link-arrow">›</span>
     </a>
