@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Green Ruby Cruises — Name Card Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Be+Vietnam+Pro:wght@400;600&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
+<style>
+  :root{--forest:#123a35;--forest2:#176d5c;--cream:#f7f5ef;--ink:#1b2b29;--muted:#667773;--border:#dfe5df;--gold:#b7a078}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
+  header{background:var(--forest);color:white;padding:25px max(calc((100vw - 1160px) / 2),28px);display:flex;align-items:center;justify-content:space-between;gap:16px}
+  header strong{font-size:16px;letter-spacing:.09em} header span{display:block;color:#b9cdc5;font-size:12px;margin-top:4px}
+  header .mark{font-size:12px;letter-spacing:.15em;border:1px solid #65877f;padding:8px 12px;color:#e3d5b3}
+  main{max-width:1160px;margin:36px auto;padding:0 22px}
+  .lead{margin-bottom:25px}.eyebrow{color:var(--forest2);font-weight:bold;letter-spacing:.16em;text-transform:uppercase;font-size:11px}
+  h1{font-size:30px;line-height:1.2;letter-spacing:-.03em;margin:8px 0 10px} p{margin:0;color:var(--muted)}
+  .layout{display:grid;grid-template-columns:390px minmax(0,1fr);gap:24px;align-items:start}
+  .panel{background:white;border:1px solid var(--border);border-radius:16px;box-shadow:0 10px 28px #153d3210;overflow:hidden}
+  .panel-heading{padding:22px 24px 16px;border-bottom:1px solid var(--border)}
+  .panel-heading h2{margin:0;font-size:16px;color:var(--forest)}
+  .panel-heading p{font-size:12px;margin-top:4px}
+  .fields{padding:22px 24px;display:grid;gap:16px}
+  .row{display:grid;grid-template-columns:92px 1fr;gap:10px}
+  label{display:block;font-size:12px;font-weight:bold;margin-bottom:6px;color:#405450}
+  input,select{width:100%;background:#fff;border:1px solid #d4dcd7;border-radius:8px;padding:11px 12px;color:#21312f;font-size:14px;font-family:inherit;outline:0}
+  input:focus,select:focus{border-color:var(--forest2);box-shadow:0 0 0 3px #176d5c18}
+  .help{font-size:11px;margin-top:6px;color:#788781}
+  .divider{height:1px;background:var(--border);margin:4px 0}
+  .preview-wrap{padding:24px}
+  .side{font-size:11px;font-weight:bold;letter-spacing:.14em;text-transform:uppercase;color:var(--forest2);margin:0 0 8px}
+  .card{display:block;width:100%;height:auto;aspect-ratio:1063/650;border-radius:10px;box-shadow:0 6px 22px #153d3222,0 0 0 1px #e5e9e5;background:#fff}
+  .card + .side{margin-top:22px}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+  button{border:0;border-radius:9px;font-size:13px;padding:13px 16px;cursor:pointer;font-weight:bold;transition:transform .15s}
+  button:hover{transform:translateY(-1px)}
+  button:disabled{opacity:.5;cursor:wait}
+  button.primary{background:var(--forest);color:white}
+  button.secondary{background:#edf2ee;color:var(--forest)}
+  #message{font-size:12px;min-height:21px;margin-top:10px;color:var(--forest2);font-weight:bold}
+  .guide{margin-top:23px;background:#fff;border:1px solid var(--border);border-radius:13px;padding:22px 24px;font-size:13px}
+  .guide h3{margin:0 0 10px;font-size:15px;color:var(--forest)}
+  .guide ol{margin:0;padding-left:21px;color:#445850}.guide li{margin:6px 0}
+  .warn{margin-top:16px;padding:12px 15px;border-radius:7px;background:#f8f3e8;font-size:12px;color:#65543b}
+  .mini{display:none}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}header{padding:22px}h1{font-size:25px}
+    .mini{display:block;position:sticky;top:0;z-index:5;margin:0 -22px 16px;padding:10px 22px;background:#f7f5efee;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);transition:opacity .2s}
+    .mini canvas{display:block;width:100%;max-width:280px;height:auto;aspect-ratio:1063/650;margin:0 auto;border-radius:6px;box-shadow:0 4px 14px #153d3222,0 0 0 1px #e5e9e5;background:#fff}
+    .mini.off{opacity:0;pointer-events:none}}
+  @media(max-width:600px){
+    header{padding:16px}header strong{font-size:14px}header span{font-size:11px}header .mark{display:none}
+    main{margin:20px auto;padding:0 16px}
+    .lead{margin-bottom:18px}h1{font-size:22px}.lead p{font-size:14px}
+    .mini{margin:0 -16px 14px;padding:8px 16px}.mini canvas{max-width:240px}
+    .layout{gap:16px}.panel{border-radius:12px}
+    .panel-heading{padding:16px 16px 12px}.fields{padding:16px;gap:14px}.preview-wrap{padding:16px}
+    input,select{font-size:16px;padding:12px}
+    .card{border-radius:6px}
+    .actions{flex-direction:column}.actions button{width:100%;padding:15px 16px;font-size:14px}
+    button:hover{transform:none}
+    .guide{margin-top:16px;padding:16px;border-radius:12px}
+  }
+</style>
+</head>
+<body>
+<header><div><strong>GREEN RUBY CRUISES</strong><span>Name Card Generator · Mẫu danh thiếp thống nhất</span></div><div class="mark">BRAND TOOLS</div></header>
+<main>
+  <div class="lead"><div class="eyebrow">Name card generator</div><h1>Danh thiếp Green Ruby, chuẩn thiết kế.</h1><p>Nhập thông tin cá nhân, xem trước hai mặt và tải file để gửi in.</p></div>
+  <div class="mini" id="miniWrap" aria-hidden="true"><canvas id="mini"></canvas></div>
+  <div class="layout">
+    <section class="panel" aria-label="Thông tin nhân viên">
+      <div class="panel-heading"><h2>01 / Thông tin nhân viên</h2><p>Bản xem trước cập nhật ngay khi bạn gõ.</p></div>
+      <div class="fields">
+        <div class="row">
+          <div><label for="sal">Danh xưng</label><select id="sal"><option value="MR">Mr</option><option value="MS" selected>Ms</option><option value="MRS">Mrs</option><option value="">—</option></select></div>
+          <div><label for="fullname">Họ và tên</label><input id="fullname" value="Đoàn Hà Trang" autocomplete="name" maxlength="60"></div>
+        </div>
+        <div><label for="job">Chức danh</label><input id="job" value="Sales Manager" maxlength="60"></div>
+        <div><label for="phone">Số điện thoại</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" value="(+84) 375 345569" maxlength="30"></div>
+        <div><label for="email">Email công ty</label><input id="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" value="sm@greenrubycruises.com" maxlength="60"></div>
+        <div><label for="web">Website</label><input id="web" value="greenrubycruises.com" autocapitalize="off" spellcheck="false" maxlength="50"></div>
+        <div><label for="addr1">Địa chỉ (dòng 1)</label><input id="addr1" value="Tuan Chau Marina," maxlength="50"></div>
+        <div><label for="addr2">Địa chỉ (dòng 2)</label><input id="addr2" value="Quang Ninh, Viet Nam" maxlength="50"></div>
+        <div class="divider"></div>
+        <div><label for="qrmode">Mã QR dẫn tới</label><select id="qrmode"><option value="web" selected>Website Green Ruby</option><option value="vcard">Danh bạ điện thoại (vCard)</option><option value="custom">Link khác…</option></select></div>
+        <div id="qrcustomWrap" hidden><label for="qrcustom">Link cho mã QR</label><input id="qrcustom" type="url" inputmode="url" autocapitalize="off" spellcheck="false" placeholder="https://…" maxlength="300"></div>
+        <div class="help" style="font-size:12px;color:#45645b;line-height:1.7">Logo, sóng, icon và mặt sau được giữ nguyên theo thiết kế gốc. Chỉ thay thông tin cá nhân.</div>
+      </div>
+    </section>
+    <div>
+      <section class="panel" aria-label="Xem trước danh thiếp">
+        <div class="panel-heading"><h2>02 / Xem trước danh thiếp</h2><p>Khổ 90 × 55 mm · 2 mặt.</p></div>
+        <div class="preview-wrap">
+          <div class="side" id="previewTop">Mặt trước</div>
+          <canvas class="card" id="front" aria-label="Mặt trước danh thiếp"></canvas>
+          <div class="side">Mặt sau</div>
+          <canvas class="card" id="back" aria-label="Mặt sau danh thiếp"></canvas>
+          <div class="actions">
+            <button class="primary" id="pdf">Tải PDF để in (2 mặt)</button>
+            <button class="secondary" id="pngFront">Tải PNG mặt trước</button>
+            <button class="secondary" id="pngBack">Tải PNG mặt sau</button>
+          </div>
+          <div id="message" role="status"></div>
+        </div>
+      </section>
+      <section class="guide"><h3>Gửi in danh thiếp</h3>
+        <ol><li>Điền đầy đủ thông tin, chọn danh xưng và kiểm tra lại chính tả.</li><li>Quét thử mã QR trên bản xem trước bằng điện thoại.</li><li>Nhấn <b>Tải PDF để in</b>. File gồm 2 trang: mặt trước và mặt sau, khổ 90 × 55 mm.</li><li>Gửi file PDF cho bộ phận Marketing hoặc nhà in.</li></ol>
+        <div class="warn">Tên quá dài sẽ được tự động thu nhỏ cho vừa thẻ. Nên ghi tên tiếng Việt có dấu đầy đủ, ví dụ “Đoàn Hà Trang”.</div>
+      </section>
+    </div>
+  </div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+// Design coordinates are measured on the 1063×650 Canva export (90×55 mm @ 300 dpi).
+const W = 1063, H = 650, SCALE = 2;
+const GREEN = '#0b4d3c', GOLD = '#c9974a';
+const FIELDS = ['sal','fullname','job','phone','email','web','addr1','addr2','qrmode','qrcustom'];
+const VI_EXTRA = /[̀-̣Ạ-ỹ]/; // Vietnamese glyphs missing from DM Sans
+const sans = (text) => VI_EXTRA.test(text.normalize('NFC')) ? '"Be Vietnam Pro","DM Sans"' : '"DM Sans","Be Vietnam Pro"';
+const load = (src) => new Promise((ok, fail) => { const i = new Image(); i.onload = () => ok(i); i.onerror = fail; i.src = src; });
+
+let frontBg, backImg;
+const values = () => Object.fromEntries(FIELDS.map(id => [id, $(id).value.trim()]));
+
+function setupCanvas(c){ c.width = W * SCALE; c.height = H * SCALE; const ctx = c.getContext('2d'); ctx.setTransform(SCALE,0,0,SCALE,0,0); return ctx; }
+
+// Draw text left-aligned at baseline y, shrinking the font until it fits maxW.
+function fitText(ctx, text, x, y, {size, weight = 400, family, italic = false, spacing = 0, maxW, color}){
+  let fs = size;
+  const setFont = () => { ctx.font = `${italic ? 'italic ' : ''}${weight} ${fs}px ${family}`; if ('letterSpacing' in ctx) ctx.letterSpacing = (spacing * fs) + 'px'; };
+  const width = () => ctx.measureText(text).width + ('letterSpacing' in ctx ? 0 : spacing * fs * text.length);
+  setFont();
+  while (width() > maxW && fs > size * 0.55) { fs -= 0.5; setFont(); }
+  ctx.fillStyle = color;
+  if ('letterSpacing' in ctx || !spacing) ctx.fillText(text, x, y);
+  else { let cx = x; for (const ch of text) { ctx.fillText(ch, cx, y); cx += ctx.measureText(ch).width + spacing * fs; } }
+  if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+  return fs;
+}
+
+function qrPayload(v){
+  if (v.qrmode === 'custom' && v.qrcustom) return v.qrcustom;
+  if (v.qrmode === 'vcard') {
+    const tel = v.phone.replace(/[^+0-9]/g, '').replace(/^\+?840?/, '+84');
+    const esc = (s) => s.replace(/[\\;,]/g, m => '\\' + m);
+    return ['BEGIN:VCARD','VERSION:3.0',`N:${esc(v.fullname)};;;;`,`FN:${esc(v.fullname)}`,'ORG:Green Ruby Cruises',
+      v.job && `TITLE:${esc(v.job)}`, tel && `TEL;TYPE=CELL:${tel}`, v.email && `EMAIL:${v.email}`,
+      `URL:https://${(v.web || 'greenrubycruises.com').replace(/^https?:\/\//,'')}`,'END:VCARD'].filter(Boolean).join('\n');
+  }
+  return 'https://' + (v.web || 'greenrubycruises.com').replace(/^https?:\/\//, '');
+}
+
+// QR in the "framed" style: white tile, thin green border, quiet gap, square green modules.
+function drawQR(ctx, data, x, y, size){
+  qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+  const qr = qrcode(0, data.length > 120 ? 'L' : 'M'); qr.addData(data, 'Byte'); qr.make();
+  const n = qr.getModuleCount();
+  const border = 3, gap = 9;
+  ctx.fillStyle = '#fff'; ctx.fillRect(x, y, size, size);
+  ctx.strokeStyle = GREEN; ctx.lineWidth = border; ctx.strokeRect(x + border/2, y + border/2, size - border, size - border);
+  const inner = size - 2 * (border + gap);
+  const m = Math.floor(inner * SCALE / n) / SCALE;            // whole device pixels per module
+  const snap = (v) => Math.round(v * SCALE) / SCALE;
+  const ox = snap(x + (size - m * n) / 2), oy = snap(y + (size - m * n) / 2);
+  ctx.fillStyle = GREEN; ctx.beginPath();                    // one fill => no hairline seams between modules
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (qr.isDark(r, c)) ctx.rect(ox + c * m, oy + r * m, m, m);
+  ctx.fill();
+}
+
+function drawFront(){
+  const v = values(), ctx = setupCanvas($('front'));
+  ctx.drawImage(frontBg, 0, 0, W, H);
+  ctx.textBaseline = 'alphabetic';
+  const name = (v.fullname || 'Họ và tên').normalize('NFC').toLocaleUpperCase('vi') + (v.sal ? ` (${v.sal})` : '');
+  fitText(ctx, name, 100, 142, {size: 45.7, weight: 700, family: sans(name), spacing: .05, maxW: 935, color: GREEN});
+  fitText(ctx, v.job || 'Chức danh', 95, 211, {size: 39, weight: 500, family: '"Cormorant Garamond"', italic: true, spacing: .04, maxW: 660, color: GOLD});
+  const line = (t, y, size = 32.5) => t && fitText(ctx, t, 162, y, {size, family: sans(t), maxW: 595, color: GREEN});
+  line(v.phone, 289); line(v.email, 348); line(v.web, 407);
+  line(v.addr1, 458, 28.4); line(v.addr2, 485, 28.4);
+  drawQR(ctx, qrPayload(v), 774, 209, 196);
+  const mini = $('mini'); mini.width = 560; mini.height = Math.round(560 * H / W);
+  mini.getContext('2d').drawImage($('front'), 0, 0, mini.width, mini.height);
+}
+function drawBack(){ setupCanvas($('back')).drawImage(backImg, 0, 0, W, H); }
+
+function slug(){ return (values().email.split('@')[0] || 'card').replace(/[^a-zA-Z0-9_-]/g, '') || 'card'; }
+function msg(t){ $('message').textContent = t; }
+function downloadBlob(blob, name){ const u = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = u; a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 2000); }
+function dataUrlBlob(url){ const [head, b64] = url.split(','); const bin = atob(b64); const a = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i); return new Blob([a], {type: head.slice(5, head.indexOf(';'))}); }
+// On phones open the share sheet (Save to Photos / Files / Zalo); elsewhere download.
+async function deliver(blob, name, label){
+  const file = new File([blob], name, {type: blob.type});
+  if (matchMedia('(pointer: coarse)').matches && navigator.canShare && navigator.canShare({files: [file]})) {
+    try { await navigator.share({files: [file], title: 'Green Ruby name card'}); msg(`Đã xuất ${label}.`); return; }
+    catch (e) { if (e.name === 'AbortError') return; }
+  }
+  downloadBlob(blob, name); msg(`Đã tải ${label}.`);
+}
+function savePng(id, side){ deliver(dataUrlBlob($(id).toDataURL('image/png')), `greenruby-namecard-${slug()}-${side}.png`, `PNG mặt ${side === 'front' ? 'trước' : 'sau'}`); }
+
+function render(){
+  try { localStorage.setItem('gr-namecard', JSON.stringify(values())); } catch (e) {}
+  $('qrcustomWrap').hidden = $('qrmode').value !== 'custom';
+  drawFront(); msg('');
+}
+
+async function init(){
+  try { const saved = JSON.parse(localStorage.getItem('gr-namecard') || 'null'); if (saved) for (const id of FIELDS) if (saved[id] != null) $(id).value = saved[id]; } catch (e) {}
+  [frontBg, backImg] = await Promise.all([load('namecard/front-bg.png'), load('namecard/back.png')]);
+  await Promise.all(['700 46px "DM Sans"','400 32px "DM Sans"','600 46px "Be Vietnam Pro"','400 32px "Be Vietnam Pro"','italic 500 39px "Cormorant Garamond"']
+    .map(f => document.fonts.load(f, 'ĐÀẦữ Aa')).concat(document.fonts.ready)).catch(() => {});
+  drawBack(); render();
+  const syncMini = () => $('miniWrap').classList.toggle('off', $('previewTop').getBoundingClientRect().top < innerHeight * 0.85);
+  addEventListener('scroll', syncMini, {passive: true}); addEventListener('resize', syncMini); syncMini();
+  for (const id of FIELDS) $(id).addEventListener(id === 'sal' || id === 'qrmode' ? 'change' : 'input', render);
+}
+
+$('pngFront').addEventListener('click', () => savePng('front', 'front'));
+$('pngBack').addEventListener('click', () => savePng('back', 'back'));
+$('pdf').addEventListener('click', () => {
+  const pdf = new window.jspdf.jsPDF({orientation: 'landscape', unit: 'mm', format: [90, 55], compress: true});
+  pdf.addImage($('front').toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, 90, 55);
+  pdf.addPage([90, 55], 'landscape');
+  pdf.addImage($('back').toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, 90, 55);
+  deliver(pdf.output('blob'), `greenruby-namecard-${slug()}.pdf`, 'PDF 2 mặt, khổ 90 × 55 mm');
+});
+init().catch(() => msg('Không tải được hình nền danh thiếp. Hãy tải lại trang.'));
+</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Green Ruby Cruises — Email Signature Builder</title>
+<style>
+  :root{--forest:#123a35;--forest2:#176d5c;--cream:#f7f5ef;--ink:#1b2b29;--muted:#667773;--border:#dfe5df;--gold:#b7a078}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
+  header{background:var(--forest);color:white;padding:25px max(calc((100vw - 1160px) / 2),28px);display:flex;align-items:center;justify-content:space-between;gap:16px}
+  header strong{font-size:16px;letter-spacing:.09em} header span{display:block;color:#b9cdc5;font-size:12px;margin-top:4px}
+  header .mark{font-size:12px;letter-spacing:.15em;border:1px solid #65877f;padding:8px 12px;color:#e3d5b3}
+  main{max-width:1160px;margin:36px auto;padding:0 22px}
+  .lead{margin-bottom:25px}.eyebrow{color:var(--forest2);font-weight:bold;letter-spacing:.16em;text-transform:uppercase;font-size:11px}
+  h1{font-size:30px;line-height:1.2;letter-spacing:-.03em;margin:8px 0 10px} p{margin:0;color:var(--muted)}
+  .layout{display:grid;grid-template-columns:390px minmax(0,1fr);gap:24px;align-items:start}
+  .panel{background:white;border:1px solid var(--border);border-radius:16px;box-shadow:0 10px 28px #153d3210;overflow:hidden}
+  .panel-heading{padding:22px 24px 16px;border-bottom:1px solid var(--border)}
+  .panel-heading h2{margin:0;font-size:16px;color:var(--forest)}
+  .panel-heading p{font-size:12px;margin-top:4px}
+  .fields{padding:22px 24px;display:grid;gap:16px}
+  label{display:block;font-size:12px;font-weight:bold;margin-bottom:6px;color:#405450}
+  input,textarea{width:100%;background:#fff;border:1px solid #d4dcd7;border-radius:8px;padding:11px 12px;color:#21312f;font-size:14px;font-family:inherit;outline:0}
+  input:focus{border-color:var(--forest2);box-shadow:0 0 0 3px #176d5c18}
+  .help{font-size:11px;margin-top:6px;color:#788781}
+  .divider{height:1px;background:var(--border);margin:4px 0}
+  .preview-wrap{padding:24px}
+  .email-context{font-size:12px;color:#728079;background:#f6f8f6;border:1px solid #e8ede8;padding:12px 16px;border-radius:8px;margin-bottom:22px}
+  .canvas{padding:20px 8px;min-height:220px;max-width:100%;overflow-x:auto;background:#fff}
+  #signature{display:inline-block;max-width:100%}
+  .preview-note{font-size:12px;color:var(--muted);margin:12px 0 0;padding-top:16px;border-top:1px solid var(--border)}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+  button{border:0;border-radius:9px;font-size:13px;padding:13px 16px;cursor:pointer;font-weight:bold;transition:transform .15s}
+  button:hover{transform:translateY(-1px)}
+  button.primary{background:var(--forest);color:white}
+  button.secondary{background:#edf2ee;color:var(--forest)}
+  #message{font-size:12px;min-height:21px;margin-top:10px;color:var(--forest2);font-weight:bold}
+  .guide{margin-top:23px;background:#fff;border:1px solid var(--border);border-radius:13px;padding:22px 24px;font-size:13px}
+  .guide h3{margin:0 0 10px;font-size:15px;color:var(--forest)}
+  .guide ol{margin:0;padding-left:21px;color:#445850}.guide li{margin:6px 0}
+  .warn{margin-top:16px;padding:12px 15px;border-radius:7px;background:#f8f3e8;font-size:12px;color:#65543b}
+  .mobile-tip{display:none;margin:0 0 18px;padding:12px 14px;border-radius:9px;background:#f8f3e8;color:#65543b;font-size:13px;line-height:1.55}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}header{padding:22px}h1{font-size:25px}.canvas{padding:5px 0}}
+  @media(max-width:600px){
+    header{padding:16px}header strong{font-size:14px}header span{font-size:11px}header .mark{display:none}
+    main{margin:20px auto;padding:0 16px}
+    .lead{margin-bottom:18px}h1{font-size:22px}.lead p{font-size:14px}
+    .layout{gap:16px}.panel{border-radius:12px}
+    .panel-heading{padding:16px 16px 12px}.fields{padding:16px;gap:14px}.preview-wrap{padding:16px}
+    input,textarea{font-size:16px;padding:12px}
+    .email-context{padding:10px 12px;margin-bottom:14px}
+    .canvas{padding:4px 0;min-height:0}
+    .actions{flex-direction:column}.actions button{width:100%;padding:15px 16px;font-size:14px}
+    button:hover{transform:none}
+    .guide{margin-top:16px;padding:16px;border-radius:12px}
+    .mobile-tip{display:block}
+  }
+</style>
+</head>
+<body>
+<header><div><strong>GREEN RUBY CRUISES</strong><span>Company Email Signature · Mẫu chữ ký thống nhất</span></div><div class="mark">BRAND TOOLS</div></header>
+<main>
+  <div class="lead"><div class="eyebrow">Signature generator</div><h1>Chữ ký email chuyên nghiệp, thống nhất.</h1><p>Nhập thông tin cá nhân, xem trước và sao chép chữ ký đã định dạng vào Gmail. </p></div>
+  <div class="mobile-tip"><b>Lưu ý:</b> Ứng dụng Gmail trên điện thoại không hỗ trợ chữ ký có logo. Hãy mở trang này trên máy tính để cài chữ ký vào Gmail; chữ ký sau đó sẽ hiển thị gọn gàng khi người nhận đọc trên điện thoại.</div>
+  <div class="layout">
+    <section class="panel" aria-label="Thông tin nhân viên">
+      <div class="panel-heading"><h2>01 / Thông tin nhân viên</h2><p>Các mục này được cập nhật trực tiếp trong bản xem trước.</p></div>
+      <div class="fields">
+        <div><label for="fullname">Họ và tên</label><input id="fullname" value="NGUYEN VAN A" autocomplete="name" maxlength="100"></div>
+        <div><label for="job">Chức danh</label><input id="job" value="Reservations Executive" maxlength="130"></div>
+        <div><label for="phone">Số điện thoại</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" value="+84 9xx xxx xxx" maxlength="70"></div>
+        <div><label for="email">Email công ty</label><input id="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" value="name@greenrubycruises.com" maxlength="180"></div>
+        <div class="divider"></div>
+        <div class="help" style="font-size:12px;color:#45645b;line-height:1.7">Logo Green Ruby Cruises được đặt sẵn từ website chính thức. Nhân viên chỉ cần thay 4 thông tin cá nhân ở trên.</div>
+      </div>
+    </section>
+    <div>
+      <section class="panel" aria-label="Xem trước chữ ký">
+        <div class="panel-heading"><h2>02 / Xem trước chữ ký Gmail</h2><p>Giữ bố cục như ảnh mẫu, dùng HTML table và định dạng trực tiếp.</p></div>
+        <div class="preview-wrap">
+          <div class="email-context"><b>From:</b> Your Name &lt;name@greenrubycruises.com&gt;<br><b>Subject:</b> Your upcoming Ha Long Bay cruise<br><br>Best regards,</div>
+          <div class="canvas"><div id="signature" aria-live="polite"></div></div>
+          <p class="preview-note">Bố cục dùng cho Gmail. Logo, tên, chức danh, số điện thoại và website nằm trong một bảng HTML tương thích email.</p>
+          <div class="actions">
+            <button class="primary" id="copy">Sao chép chữ ký cho Gmail</button>
+            <button class="secondary" id="save">Tải HTML chữ ký</button>
+          </div>
+          <div id="message" role="status"></div>
+        </div>
+      </section>
+      <section class="guide"><h3>Cài chữ ký vào Gmail trong 1 phút</h3>
+        <ol><li>Điền tên, chức danh, số điện thoại và email.</li><li>Kiểm tra logo Green Ruby đã có sẵn ở bản xem trước.</li><li>Nhấn <b>Sao chép chữ ký cho Gmail</b>.</li><li>Mở Gmail → Cài đặt ⚙ → Xem tất cả chế độ cài đặt → Chung → Chữ ký → Tạo mới.</li><li>Dán bằng <b>Ctrl+V / Cmd+V</b> vào khung chữ ký, chọn chữ ký mặc định và lưu.</li><li>Gửi thử 1 email đến hộp thư khác trên cả desktop và điện thoại.</li></ol>
+        <div class="warn">Logo được sử dụng trực tiếp từ greenrubycruises.com. Không dán nguyên mã HTML vào Gmail — hãy sao chép phần chữ ký đã hiển thị. Khi gửi thư, người nhận có thể cần bật hiển thị ảnh từ xa.</div>
+      </section>
+    </div>
+  </div>
+</main>
+<script>
+const $ = (id) => document.getElementById(id);
+const LOGO_URL = 'https://greenrubycruises.com/thumbnail/upload/2026/07/12/logo-removebg-preview-1-1.png?w=140&h=112&q=60&cr=1';
+const fields = ['fullname','job','phone','email'];
+const esc = (text) => String(text ?? '').replace(/[&<>"']/g, x => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
+const telHref = (s) => 'tel:' + String(s||'').replace(/[^+0-9]/g,'');
+function getValues(){return {
+  name: $('fullname').value.trim() || 'NGUYEN VAN A',
+  title: $('job').value.trim() || 'Reservations Executive',
+  phone: $('phone').value.trim() || '+84 9xx xxx xxx',
+  email: $('email').value.trim() || 'name@greenrubycruises.com',
+  logo: LOGO_URL
+}}
+function signatureHtml(p){
+  const mark = `<img src="${esc(p.logo)}" width="108" alt="Green Ruby Cruises" style="display:block;margin:0 auto;width:108px;max-width:108px;height:auto;border:0;outline:none;text-decoration:none;">`;
+  const emailLink = /^\S+@\S+\.\S+$/.test(p.email) ? `mailto:${encodeURIComponent(p.email).replace('%40','@')}` : '';
+  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="480" style="width:100%;max-width:480px;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;color:#25312e;background-color:#ffffff;">
+  <tbody><tr>
+    <td width="124" valign="middle" align="center" style="width:124px;padding:6px 12px 6px 0;vertical-align:middle;text-align:center;border-right:3px solid #187d66;">
+      <a href="https://greenrubycruises.com/" style="display:inline-block;text-decoration:none;color:#123a35;">${mark}</a>
+      <div style="font-family:Georgia,'Times New Roman',serif;font-size:10px;line-height:14px;font-style:italic;letter-spacing:0.2px;color:#8a7650;padding-top:6px;white-space:nowrap;">Luxury without trace</div>
+    </td>
+    <td valign="middle" style="padding:6px 0 6px 16px;vertical-align:middle;">
+      <div style="font-family:Arial,Helvetica,sans-serif;font-size:17px;line-height:22px;font-weight:700;color:#182420;">${esc(p.name)}</div>
+      <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:19px;color:#707976;padding-top:2px;padding-bottom:10px;">${esc(p.title)}</div>
+      <div style="font-size:13px;line-height:21px;color:#333e3a;"><span style="color:#17725e;font-weight:bold;padding-right:8px;">T</span><a href="${esc(telHref(p.phone))}" style="color:#333e3a;text-decoration:none;white-space:nowrap;">${esc(p.phone)}</a></div>
+      <div style="font-size:13px;line-height:21px;color:#333e3a;"><span style="color:#17725e;font-weight:bold;padding-right:8px;">E</span>${emailLink ? `<a href="${esc(emailLink)}" style="color:#333e3a;text-decoration:none;word-break:break-word;overflow-wrap:anywhere;">${esc(p.email)}</a>` : esc(p.email)}</div>
+      <div style="font-size:13px;line-height:21px;color:#333e3a;"><span style="color:#17725e;font-weight:bold;padding-right:8px;">W</span><a href="https://greenrubycruises.com/" style="color:#333e3a;text-decoration:none;">greenrubycruises.com</a></div>
+    </td>
+  </tr></tbody>
+</table>`;
+}
+function render(){const p=getValues();$('signature').innerHTML=signatureHtml(p);$('message').textContent='';}
+for(const id of fields) $(id).addEventListener('input', render);
+$('copy').addEventListener('click',async()=>{
+  const p=getValues(); const html=signatureHtml(p); const el=$('signature');
+  let ok=false;
+  if(window.ClipboardItem && navigator.clipboard && navigator.clipboard.write){
+    try {await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([el.innerText],{type:'text/plain'})})]);ok=true;} catch(e){}
+  }
+  if(!ok){
+    const selection=window.getSelection();selection.removeAllRanges();const r=document.createRange();r.selectNodeContents(el);selection.addRange(r);
+    try{ok=document.execCommand('copy');}catch(e){}
+    selection.removeAllRanges();
+  }
+  $('message').textContent=ok?'Đã sao chép chữ ký kèm logo! Dán vào Gmail bằng Cmd+V / Ctrl+V.':'Trình duyệt không cho sao chép tự động. Hãy bôi đen phần xem trước rồi copy thủ công.';
+});
+$('save').addEventListener('click',()=>{
+  const p=getValues();
+  const doc='<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Green Ruby Cruises Email Signature</title></head><body style="margin:24px;background:white">'+signatureHtml(p)+'</body></html>';
+  const blob=new Blob([doc],{type:'text/html;charset=utf-8'});const u=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=u;a.download='greenruby-signature-'+p.email.split('@')[0].replace(/[^a-zA-Z0-9_-]/g,'')+'.html';a.click();setTimeout(()=>URL.revokeObjectURL(u),1500);
+  $('message').textContent='Đã tải file chữ ký HTML.';
+});
+render();
+</script>
+</body>
+</html>
